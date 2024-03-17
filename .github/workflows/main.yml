@@ -12,7 +12,7 @@ env:
   IMAGE: demo_app # image name
   DEPLOYMENT_NAME: go-service
   IMAGE_TAG: production # image tag
-  GAR_ZONE: europe-central2-c # artifact registry zone
+  GAR_ZONE: europe-central2 # artifact registry zone
   GAR_REPO: dc-docker-repo # artifact registry repository
 
 jobs:
