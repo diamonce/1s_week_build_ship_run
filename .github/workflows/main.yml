@@ -11,7 +11,7 @@ env:
   GKE_ZONE: europe-central2-c   # cluster zone
   IMAGE: demo_app # image name
   IMAGE_TAG: production # image tag
-  GAR_ZONE: europe-central2 # artifact registry zone
+  GAR_ZONE: europe-central2-c # artifact registry zone
   GAR_REPO: dc-docker-repo # artifact registry repository
 
 jobs:
