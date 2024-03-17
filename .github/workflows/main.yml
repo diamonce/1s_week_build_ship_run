@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: tf-cluster    # cluster name
-  GKE_ZONE: europe-central2   # cluster zone
+  GKE_ZONE: europe-central2-c   # cluster zone
   IMAGE: demo_app # image name
   IMAGE_TAG: production # image tag
   GAR_ZONE: europe-central2 # artifact registry zone
