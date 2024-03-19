@@ -75,4 +75,5 @@ jobs:
       run: |-
         kubectl apply -f ./demo/deploy/go_demo_template.yaml
         kubectl get pods
+        kubectl rollout restart deploy
         
