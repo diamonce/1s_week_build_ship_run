@@ -3,6 +3,7 @@
 <!-- This should work everywhere -->
 <head>
 	<script type="text/javascript" src="./vivus.min.js"></script>
+  <script type="text/javascript" src="status.js"></script>
   <script type="text/javascript">
   
 function sleep(ms) {
@@ -11,19 +12,17 @@ function sleep(ms) {
 
 async function play(frame = 1, s = 700) {
 
-localStorage.frame_num = frame;
+  localStorage.frame_num = frame;
 
-document.getElementById('Main').innerHTML = "";
-
-
-   SVG = new Vivus('Main', {type: 'oneByOne', start:'manual', duration: s, file: './frame'+frame+'.svg',
-    onReady: function (obj) {
-    obj.play(2); }}, 
-    function (obj) { 
-    obj.el.classList.add('finished');
-  } );
+  document.getElementById('Main').innerHTML = "";
 
 
+    SVG = new Vivus('Main', {type: 'oneByOne', start:'manual', duration: s, file: './frame'+frame+'.svg',
+      onReady: function (obj) {
+      obj.play(2); }}, 
+      function (obj) { 
+      obj.el.classList.add('finished');
+    } );
 }
 function stop(s) {
   s.stop();
@@ -49,7 +48,21 @@ svg.finished * {
 </style>
 </head>
 <body>
-<h1>DevOps та Kubernetes 3.0 Status Page</h1>  
+<h1>DevOps та Kubernetes 3.0 Status Page</h1> 
+<table id="statusTable" cellpadding="10">
+  <thead>
+      <tr>
+          <th>Service ID</th>
+          <th>Service Name</th>
+          <th>Status</th>
+      </tr>
+  </thead>
+  <tbody>
+      <!-- JavaScript will populate table rows here -->
+  </tbody>
+</table> 
+<br>
+<h3>Penni the cat won't keep an eye on your unavailable services, so it's up to you to monitor them.</h3>
 <div id="Main" align="center">
   <script type="text/javascript">
   
