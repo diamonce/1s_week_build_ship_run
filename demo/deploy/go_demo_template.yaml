@@ -26,7 +26,7 @@ spec:
     spec:
       automountServiceAccountToken: true
       containers:
-        - image: europe-central2-docker.pkg.dev/ethereal-runner-417315/dc-docker-repo/demo_app:latest
+        - image: europe-central2-docker.pkg.dev/ethereal-runner-417315/dc-docker-repo/demo_app:production
           imagePullPolicy: Always
           name: dchernenko-demo-app
           ports:
