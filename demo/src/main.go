@@ -54,6 +54,13 @@ func main() {
 				Port:        80,
 				Protocol:    "http",
 			},
+			{
+				ServiceId:   "olekluk",
+				ServiceName: "OlekLUk",
+				IPAddress:   "34.133.93.117",
+				Port:        80,
+				Protocol:    "http",
+			},
 		},
 	}
 
