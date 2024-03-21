@@ -10,6 +10,6 @@ Deployment is fully automated, so once PR is accepted your Project will be added
 
   * If you want to know how the GitHub Actions deployment works on this repo please check out .github/workflows/main.yml of this project.
 
-  * If you want to know how Kubernetes (k8s) cluster on Google Cloud Platform (GCP) please take a look at /demo/deploy/tf-gke-project/.
+  * If you want to know how Kubernetes (k8s) cluster on Google Cloud Platform (GCP) was initially deployed please take a look at /demo/deploy/tf-gke-project/.
 
 Good luck!
