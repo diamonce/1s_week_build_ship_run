@@ -8,6 +8,8 @@ Feel free to add your project by cloning this repo and raising a Pull Request.
 
 Deployment is fully automated, so once PR is accepted your Project will be added to Dashboard.
 
-If you want to know how the GitHub Actions deployment works on this repo please check out .github/workflows/main.yml of this project.
+  * If you want to know how the GitHub Actions deployment works on this repo please check out .github/workflows/main.yml of this project.
+
+  * If you want to know how Kubernetes (k8s) cluster on Google Cloud Platform (GCP) please take a look at /demo/deploy/tf-gke-project/.
 
 Good luck!
