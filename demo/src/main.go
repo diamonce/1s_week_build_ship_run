@@ -23,13 +23,16 @@ func checkService(service Service) ([]byte, error) {
 	client := http.Client{
 		Timeout: 3 * time.Second,
 	}
+
 	url := fmt.Sprintf("%s://%s:%d", service.Protocol, service.IPAddress, service.Port)
 	resp, err := client.Get(url)
+
 	status := "down \\/"
 	if err == nil && resp.StatusCode == http.StatusOK {
 		status = "up /\\"
+		// Close connectin if there is no error
+		defer resp.Body.Close()
 	}
-	defer resp.Body.Close()
 
 	return json.Marshal(map[string]string{
 		"service_name": service.ServiceName,
