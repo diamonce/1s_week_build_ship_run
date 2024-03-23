@@ -21,7 +21,7 @@ spec {
       }
       spec {
         container {
-          image = "dchernenko/demo_app:latest"
+          image = "europe-central2-docker.pkg.dev/ethereal-runner-417315/dc-docker-repo/demo_app:production"
           name  = "dchernenko-demo-app"
           port {
             container_port = 8088

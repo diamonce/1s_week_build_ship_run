@@ -36,7 +36,7 @@ resource "google_container_node_pool" "primary_nodes" {
   name       = "${var.clusterName}-pool"
   location   = var.region # Replace this with your desired region
   cluster    = google_container_cluster.gke_cluster.name
-  node_count = 1
+  node_count = 2
 
   management {
     auto_repair  = true
