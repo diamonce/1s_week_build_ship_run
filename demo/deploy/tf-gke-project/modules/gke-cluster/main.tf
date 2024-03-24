@@ -1,4 +1,6 @@
 resource "google_container_cluster" "gke_cluster" {
+  provider = google-beta # This is cost optimisation measure. GKE is the MOST expensive part
+
   name     = var.clusterName
   location = var.region # Replace this with your desired region
 
@@ -30,13 +32,28 @@ resource "google_container_cluster" "gke_cluster" {
   lifecycle {
     ignore_changes = [node_pool]
   }
+
+  cluster_autoscaling {
+    enabled = true
+    autoscaling_profile = "OPTIMIZE_UTILIZATION"
+    resource_limits {
+      resource_type = "cpu"
+      minimum = 1
+      maximum = 6
+    }
+    resource_limits {
+      resource_type = "memory"
+      minimum = 1
+      maximum = 3
+    }
+  }
 }
 
 resource "google_container_node_pool" "primary_nodes" {
   name       = "${var.clusterName}-pool"
   location   = var.region # Replace this with your desired region
   cluster    = google_container_cluster.gke_cluster.name
-  node_count = 2
+  node_count = 3
 
   management {
     auto_repair  = true

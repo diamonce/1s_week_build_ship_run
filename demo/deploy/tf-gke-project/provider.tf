@@ -4,6 +4,12 @@ provider "google" {
   region      = "europe-central2-c"
 }
 
+provider "google-beta" {
+  credentials = file("~/.config/gcloud/ethereal-runner-417315.json")
+  project     = "ethereal-runner-417315"
+  region      = "europe-central2-c"
+}
+
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
