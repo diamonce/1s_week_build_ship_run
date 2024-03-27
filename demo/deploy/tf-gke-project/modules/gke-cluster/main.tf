@@ -7,6 +7,10 @@ resource "google_container_cluster" "gke_cluster" {
   enable_shielded_nodes    = "true"
   remove_default_node_pool = true
   initial_node_count       = 1
+
+  # Disable the Google Cloud Logging service because you may overrun the Logging free tier allocation, and it may be expensive
+  logging_service = "none"
+
   release_channel {
     channel = "STABLE"
   }
@@ -33,6 +37,7 @@ resource "google_container_cluster" "gke_cluster" {
     ignore_changes = [node_pool]
   }
 
+
   cluster_autoscaling {
     enabled = true
     autoscaling_profile = "OPTIMIZE_UTILIZATION"
@@ -43,8 +48,8 @@ resource "google_container_cluster" "gke_cluster" {
     }
     resource_limits {
       resource_type = "memory"
-      minimum = 1
-      maximum = 3
+      minimum = 2
+      maximum = 8
     }
   }
 }
@@ -53,7 +58,7 @@ resource "google_container_node_pool" "primary_nodes" {
   name       = "${var.clusterName}-pool"
   location   = var.region # Replace this with your desired region
   cluster    = google_container_cluster.gke_cluster.name
-  node_count = 3
+#  node_count = 3
 
   management {
     auto_repair  = true
@@ -71,7 +76,9 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 
   node_config {
-    preemptible  = true
+    # More info on Spot VMs with GKE https://cloud.google.com/kubernetes-engine/docs/how-to/spot-vms#create_a_cluster_with_enabled
+    spot = true
+#    preemptible  = true
     machine_type = var.machineType
     disk_size_gb             = var.diskSize
 
@@ -83,4 +90,5 @@ resource "google_container_node_pool" "primary_nodes" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
+
 }
