@@ -12,4 +12,6 @@ Deployment is fully automated, so once PR is accepted your Project will be added
 
   * If you want to know how Kubernetes (k8s) cluster on Google Cloud Platform (GCP) was initially deployed please take a look at /demo/deploy/tf-gke-project/.
 
+You can find me at @dok_tele_status_bot https://web.telegram.org/a/#7159007767 . Bot implementation is next door at https://github.com/diamonce/dok_tele_status .
+
 Good luck!
