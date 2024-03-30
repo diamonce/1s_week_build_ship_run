@@ -7,7 +7,7 @@ resource "kubernetes_deployment" "go_deployment" {
   }
 
 spec {
-    replicas = 3
+    replicas = 5
     selector {
       match_labels = {
         app = "go"

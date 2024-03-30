@@ -22,7 +22,7 @@ resource "kubernetes_deployment" "dok_tele_status_deployment" {
       }
  }
   spec {
-    replicas = 1
+    replicas = 3
       selector {
         match_labels = {
           app = "dok-tele-status"

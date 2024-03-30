@@ -1,6 +1,10 @@
 region="europe-central2-c"
+region1="europe-central2"
+region2="us-east4"
+vpc_network="db-vpc-net"
 clusterName="tf-cluster"
 diskSize=30
 minNode=1
-maxNode=3
+maxNode=4
 machineType="e2-micro"
+project="ethereal-runner-417315"
