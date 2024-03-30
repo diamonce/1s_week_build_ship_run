@@ -1,5 +1,11 @@
 Welcome, adventurers, to the DevOps та Kubernetes 3.0 Status Page! 
 
+You can find me at 
+ * @dok_tele_status_bot https://web.telegram.org/a/#7159007767
+ * http://34.116.191.131/
+
+Bot implementation is next door at https://github.com/diamonce/dok_tele_status repo.
+
 This dashboard serves as a dynamic window into the deployment status ("Up /\" or "Down \/") of various student projects. 
 
 The project is written in Golang and Hosted at Kubernetes (k8s) cluster on Google Cloud Platform (GCP) at http://34.116.191.131/.
