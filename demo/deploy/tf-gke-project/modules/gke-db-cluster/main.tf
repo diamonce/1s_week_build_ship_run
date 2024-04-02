@@ -5,52 +5,52 @@ terraform {
   }
 }
 
-resource "google_secret_manager_secret" "db-user-name" {
+data "google_secret_manager_secret" "db-user-name" {
   provider = google-beta
       
   secret_id = "DB_USER_NAME"
 	
-  replication {
-    auto {}
-  }
+#  replication {
+#    auto {}
+#  }
 }
 
-resource "google_secret_manager_secret" "db-pass" {
+data "google_secret_manager_secret" "db-pass" {
   provider = google-beta
       
   secret_id = "DB_PASS"
 	
-  replication {
-    auto {}
-  }
+#  replication {
+#    auto {}
+#  }
 }
 
-resource "google_secret_manager_secret" "db-name" {
+data "google_secret_manager_secret" "db-name" {
   provider = google-beta
       
   secret_id = "DB_NAME"
 	
-  replication {
-    auto {}
-  }
+#  replication {
+#    auto {}
+#  }
 }
 
 data "google_secret_manager_secret_version" "db-user-name" {
   provider = google-beta
 
-  secret = google_secret_manager_secret.db-user-name.id
+  secret = data.google_secret_manager_secret.db-user-name.id
 }
 
 data "google_secret_manager_secret_version" "db-name" {
   provider = google-beta
 
-  secret = google_secret_manager_secret.db-name.id
+  secret = data.google_secret_manager_secret.db-name.id
 }
 
 data "google_secret_manager_secret_version" "db-pass" {
   provider = google-beta
 
-  secret = google_secret_manager_secret.db-pass.id
+  secret = data.google_secret_manager_secret.db-pass.id
 }
 
 resource "random_id" "db_name_suffix_master" {
@@ -63,10 +63,10 @@ resource "random_id" "db_name_suffix_replica" {
 
 # Use DB VPC Network
 #
-resource "google_compute_network" "private_network" {
+data "google_compute_network" "private_network" {
   name                    = var.vpc_network
   project                 = var.project
-  auto_create_subnetworks = false
+#  auto_create_subnetworks = false
 }
 
 #data "google_compute_network" "default" {
@@ -74,16 +74,17 @@ resource "google_compute_network" "private_network" {
 #}
 
 resource "google_compute_global_address" "private_ip_address" {
-  name          = google_compute_network.private_network.name
+  name          = data.google_compute_network.private_network.name
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
-  prefix_length = 16
-  network       = google_compute_network.private_network.name
+  prefix_length = 20
+#  address       = "10.142.0.0"
+  network       = data.google_compute_network.private_network.name
   project       = var.project
 }
 
 resource "google_service_networking_connection" "default" {
-  network                 = google_compute_network.private_network.id
+  network                 = data.google_compute_network.private_network.id
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
 }
@@ -151,30 +152,39 @@ data "google_compute_network" "default" {
 }
 
 # Define the database VPC network
-data "google_compute_network" "db-vpc-net" {
-  name = "db-vpc-net"
-}
+#data "google_compute_network" "db-vpc-net" {
+#  name = "db-vpc-net"
+#}
 
 # Define VPC network peering from default network to database network
-resource "google_compute_network_peering" "default_to_db" {
-  name                  = "default-to-db-peering"
-  network               = data.google_compute_network.default.self_link
-  peer_network          = data.google_compute_network.db-vpc-net.self_link
-  export_custom_routes  = false  # Set to true if you want to export custom routes
-  import_custom_routes  = false  # Set to true if you want to import custom routes
-}
+#resource "google_compute_network_peering" "default_to_db" {
+#  name                  = "default-to-db-peering"
+#  network               = data.google_compute_network.default.self_link
+#  peer_network          = data.google_compute_network.db-vpc-net.self_link
+#  export_custom_routes  = false  # Set to true if you want to export custom routes
+#  import_custom_routes  = false  # Set to true if you want to import custom routes
+#}
+
+# Define VPC network peering from database to default
+#resource "google_compute_network_peering" "db_to_default" {
+#  name                  = "default-to-db-peering"
+#  network               = data.google_compute_network.db-vpc-net.self_link
+#  peer_network          = data.google_compute_network.default.self_link
+#  export_custom_routes  = false  # Set to true if you want to export custom routes
+#  import_custom_routes  = false  # Set to true if you want to import custom routes
+#}
 
 # Define firewall rule to allow PostgreSQL connections from GKE cluster
-resource "google_compute_firewall" "allow_postgres_from_gke" {
-  name    = "allow-postgres-from-gke"
-  network = data.google_compute_network.db-vpc-net.name
-  
-  allow {
-    protocol = "tcp"
-    ports    = ["5432"]
-  }
-  
-  source_tags      = ["tf-cluster"]  # Assuming GKE nodes have this tag
-  source_ranges    = ["10.30.0.0/16"] # Replace with GKE cluster CIDR range
-  target_tags      = ["tf-cluster-db"] # Assuming database server VMs have this tag
-}
+#resource "google_compute_firewall" "allow_postgres_from_gke" {
+#  name    = "allow-postgres-from-gke"
+#  network = data.google_compute_network.db-vpc-net.name
+#  
+#  allow {
+#    protocol = "tcp"
+#    ports    = ["5432"]
+#  }
+#  
+#  source_tags      = ["tf-cluster"]  # Assuming GKE nodes have this tag
+#  source_ranges    = ["10.30.0.0/16"] # Replace with GKE cluster CIDR range
+#  target_tags      = ["tf-cluster-db"] # Assuming database server VMs have this tag
+#}

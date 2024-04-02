@@ -40,3 +40,15 @@ module "gke_db_cluster" {
   project       = var.project
 }
 
+module "gke_zap_secops" {
+  source = "./modules/gke-zap-secops"
+
+  region       = var.region
+  clusterName  = var.clusterName
+  diskSize     = var.diskSize
+  minNode      = var.minNode
+  maxNode      = var.maxNode
+  machineType  = var.machineType
+}
+
+
