@@ -72,6 +72,25 @@ spec {
     }
   }
 }
+
+resource "google_compute_firewall" "allow_only_ip" {
+  name          = "k8s-fw-a8f02b31eb94f425086e82cab90cdb71"
+  network       = "projects/ethereal-runner-417315/global/networks/default"
+  priority      = 1000
+  direction     = "INGRESS"
+  target_tags   = ["gke-tf-cluster-f4bb6148-node"]
+  allow {
+    protocol = "tcp"
+    ports    = ["8083"]
+  }
+  source_ranges = ["141.101.7.0/24"]  # Allow only 141.101.7.0/24 addresses
+  destination_ranges = ["34.116.243.154"]  # Keep the existing destination range
+  # This indicates that the existing firewall rule should be updated
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "kubernetes_service" "zap_secops_service" {
   metadata {
     name = "zap-secops-service"
