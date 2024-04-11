@@ -11,3 +11,8 @@ demo/deploy/tf-gke-project/.terraform/providers/registry.terraform.io/hashicorp/
 demo/deploy/tf-gke-project/.terraform/providers/registry.terraform.io/hashicorp/random/3.6.0/darwin_amd64/terraform-provider-random_v3.6.0_x5
 .DS_Store
 demo/.DS_Store
+.DS_Store
+.DS_Store
+.DS_Store
+demo/.DS_Store
+demo/deploy/tf-gke-project/.terraform/providers/registry.terraform.io/hashicorp/helm/2.5.1/darwin_amd64/terraform-provider-helm_v2.5.1_x5

@@ -51,4 +51,13 @@ module "gke_zap_secops" {
   machineType  = var.machineType
 }
 
+module "gke_argocd" {
+  source = "./modules/gke-argocd"
 
+  region       = var.region
+  clusterName  = var.clusterName
+  diskSize     = var.diskSize
+  minNode      = var.minNode
+  maxNode      = var.maxNode
+  machineType  = var.machineType
+}

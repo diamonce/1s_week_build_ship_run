@@ -1,0 +1,15 @@
+---
+global:
+  image:
+    tag: "v2.10.6"
+
+dex:
+  enabled: false
+
+env:
+  - name: TELE_TOKEN
+    value: "nothing"
+
+server:
+  extraArgs:
+    - --insecure

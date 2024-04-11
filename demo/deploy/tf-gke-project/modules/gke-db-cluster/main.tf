@@ -110,30 +110,30 @@ resource "google_sql_database_instance" "master" {
   }
 }
 
-resource "google_sql_database_instance" "read_replica" {
-  name                 = "tf-cluster-db-${random_id.db_name_suffix_replica.hex}"
-  master_instance_name = "${google_sql_database_instance.master.name}"
-  region               = var.region2
-  database_version     = "POSTGRES_11"
-  project              = var.project
-  deletion_protection = false
-  replica_configuration {
-    failover_target = false
-  }
-  depends_on =    [google_service_networking_connection.default]
-  settings {
-    tier              = "db-f1-micro"
-    availability_type = "REGIONAL"
-    disk_size         = "100"
-    backup_configuration {
-      enabled = false
-    }
-    ip_configuration {
-      ipv4_enabled    = true
-      private_network = "projects/${var.project}/global/networks/${var.vpc_network}"
-    }
-  }
-}
+#resource "google_sql_database_instance" "read_replica" {
+#  name                 = "tf-cluster-db-${random_id.db_name_suffix_replica.hex}"
+#  master_instance_name = "${google_sql_database_instance.master.name}"
+#  region               = var.region2
+#  database_version     = "POSTGRES_11"
+#  project              = var.project
+#  deletion_protection = false
+#  replica_configuration {
+#    failover_target = false
+#  }
+#  depends_on =    [google_service_networking_connection.default]
+#  settings {
+#    tier              = "db-f1-micro"
+#    availability_type = "REGIONAL"
+#    disk_size         = "100"
+#    backup_configuration {
+#      enabled = false
+#    }
+#    ip_configuration {
+#      ipv4_enabled    = true
+#      private_network = "projects/${var.project}/global/networks/${var.vpc_network}"
+#    }
+#  }
+#}
 
 resource "google_sql_user" "users" {
   name     = data.google_secret_manager_secret_version.db-user-name.secret_data

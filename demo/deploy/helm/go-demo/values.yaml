@@ -1,0 +1,9 @@
+goDemo:
+  dchernenkoDemoApp:
+    image:
+      repository: europe-central2-docker.pkg.dev/ethereal-runner-417315/dc-docker-repo/demo_app
+      tag: production
+    imagePullPolicy: Always
+  replicas: 5
+  revisionHistoryLimit: 10
+kubernetesClusterDomain: cluster.local
