@@ -12,5 +12,5 @@ kubectl kubeplugin
 
 ## Usage example 
 
-![dctop example](https://raw.githubusercontent.com/diamonce/1s_week_build_ship_run/blob/main/demo/deploy/scripts/dctop.png)
-<img src="![dctop example](https://raw.githubusercontent.com/diamonce/1s_week_build_ship_run/blob/main/demo/deploy/scripts/dctop.png)">
+![dctop example](https://raw.githubusercontent.com/diamonce/1s_week_build_ship_run/main/demo/deploy/scripts/dctop.png)
+<img src="![dctop example](https://raw.githubusercontent.com/diamonce/1s_week_build_ship_run/main/demo/deploy/scripts/dctop.png)">
