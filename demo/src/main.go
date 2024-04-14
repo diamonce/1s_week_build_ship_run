@@ -71,7 +71,13 @@ func main() {
 
 	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(json.Marshal("Version: 1.0.0"))
+		response := map[string]string{"Version": "1.0.0"}
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
+			return
+		}
+		w.Write(jsonResponse)
 	})
 
 	http.HandleFunc("/status", func(w http.ResponseWriter, r *http.Request) {
