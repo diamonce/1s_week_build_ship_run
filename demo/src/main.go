@@ -69,6 +69,11 @@ func main() {
 
 	http.Handle("/", http.FileServer(http.Dir("./html")))
 
+	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write("Version: 1.0.0")
+	})
+
 	http.HandleFunc("/status", func(w http.ResponseWriter, r *http.Request) {
 		serviceIds := make([]string, len(settings.Servers))
 		for i, service := range settings.Servers {
