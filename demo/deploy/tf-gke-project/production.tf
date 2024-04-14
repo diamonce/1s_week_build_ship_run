@@ -31,14 +31,14 @@ module "gke_dok_tele_status" {
   machineType  = var.machineType
 }
 
-module "gke_db_cluster" {
-  source = "./modules/gke-db-cluster"
-
-  region1       = var.region1
-  region2       = var.region2
-  vpc_network   = var.vpc_network
-  project       = var.project
-}
+#module "gke_db_cluster" {
+#  source = "./modules/gke-db-cluster"
+#
+#  region1       = var.region1
+#  region2       = var.region2
+#  vpc_network   = var.vpc_network
+#  project       = var.project
+#}
 
 module "gke_zap_secops" {
   source = "./modules/gke-zap-secops"

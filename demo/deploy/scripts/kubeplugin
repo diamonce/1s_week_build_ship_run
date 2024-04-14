@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Define command-line arguments
+SELF=$0
+RESOURCE_TYPE=$1
+RESOURCE_NAME=$2
+EXTRA_ARGS=""
+
+# Set ANSI color escape codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'  # No color
+
+# Help message function
+print_usage() {
+    echo "Usage: $0 [ pod | node ]"
+    echo "If RESOURCE_TYPE is not provided, default to 'pod'."
+}
+
+# If no arguments provided, display help and suggest a command
+if [[ "$1" == "-h" ]]; then
+    print_usage
+    echo "Example: $0 deployment"
+    exit 1
+fi
+
+# If resource type is empty, default to "pod"
+if [ -z "$RESOURCE_TYPE" ]; then
+    RESOURCE_TYPE="pod"
+fi
+
+if [[ "$RESOURCE_TYPE" == "pod" && "$RESOURCE_NAME" == "" ]]; then
+   EXTRA_ARGS="-A"
+fi
+
+echo -e "${YELLOW}Resource, Namespace, Name, CPU, Memory${NC}"
+
+# Extract CPU and memory usage from the kubectl output
+while read -r NAMESPACE NAME CPU MEMORY; do
+    # Print each line with color
+    echo -e "${GREEN}$RESOURCE_TYPE${NC}  ${RED}$NAMESPACE${NC}  $NAME  ${YELLOW}$CPU${NC}  ${YELLOW}$MEMORY${NC}"
+done < <(kubectl top "$RESOURCE_TYPE" "$RESOURCE_NAME" --no-headers $EXTRA_ARGS)
+
+#echo "kubectl top $RESOURCE_TYPE $RESOURCE_NAME --no-headers $EXTRA_ARGS"
