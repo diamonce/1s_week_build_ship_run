@@ -1,1 +1,12 @@
+dokTeleStatusDemo:
+  dokTeleStatus:
+    env:
+      teleToken: ${TELE_TOKEN}
+    image:
+      repository: dchernenko/dok_tele_status
+      tag: production
+      arch: amd64
+    imagePullPolicy: Always
+  replicas: 3
+  revisionHistoryLimit: 10
 kubernetesClusterDomain: cluster.local

@@ -1,46 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: {{ include "dok-tele-status-demo.fullname" . }}-dok-tele-status-demo
+  labels:
+    app: dok-tele-status
+  {{- include "dok-tele-status-demo.labels" . | nindent 4 }}
   annotations:
     deployment.kubernetes.io/revision: "13"
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"generation":19,"labels":{"app":"dok-tele-status","argocd.argoproj.io/instance":"dok-tele-status"},"name":"dok-tele-status-demo","namespace":"default"},"spec":{"progressDeadlineSeconds":600,"replicas":3,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"dok-tele-status"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"dok-tele-status"}},"spec":{"automountServiceAccountToken":true,"containers":[{"env":[{"name":"TELE_TOKEN","value":"${TELE_TOKEN}"}],"image":"dchernenko/dok_tele_status:production","imagePullPolicy":"Always","name":"dok-tele-status","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","enableServiceLinks":true,"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"shareProcessNamespace":false,"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":2,"observedGeneration":19,"readyReplicas":2,"replicas":4,"unavailableReplicas":2,"updatedReplicas":2}}
-  creationTimestamp: "2024-04-10T23:51:40Z"
-  generation: 15
-  labels:
-    app: dok-tele-status
-  name: dok-tele-status-demo
-  namespace: default
-  resourceVersion: "20384921"
-  uid: d2588732-f743-411a-9650-655105747c25
 spec:
-  progressDeadlineSeconds: 600
-  replicas: 3
-  revisionHistoryLimit: 10
+  replicas: {{ .Values.dokTeleStatusDemo.replicas }}
+  revisionHistoryLimit: {{ .Values.dokTeleStatusDemo.revisionHistoryLimit }}
   selector:
     matchLabels:
       app: dok-tele-status
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+    {{- include "dok-tele-status-demo.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      annotations:
-        kubectl.kubernetes.io/restartedAt: "2024-04-14T20:35:22Z"
-      creationTimestamp: null
       labels:
         app: dok-tele-status
+      {{- include "dok-tele-status-demo.selectorLabels" . | nindent 8 }}
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2024-04-14T20:35:22Z"
     spec:
       automountServiceAccountToken: true
       containers:
       - env:
         - name: TELE_TOKEN
-          value: ${TELE_TOKEN}
-        image: dchernenko/dok_tele_status:production
-        imagePullPolicy: Always
-        name: dok-tele-status
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "dok-tele-status-demo.fullname" . }}-tele-token
+              key: teleToken
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.dokTeleStatusDemo.dokTeleStatus.image.repository }}:{{ .Values.dokTeleStatusDemo.dokTeleStatus.image.tag}}-{{ .Values.dokTeleStatusDemo.dokTeleStatus.image.arch | default "amd64"
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.dokTeleStatusDemo.dokTeleStatus.imagePullPolicy }}
+        name: {{ .Release.Name }}
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -51,22 +48,3 @@ spec:
       securityContext: {}
       shareProcessNamespace: false
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 3
-  conditions:
-  - lastTransitionTime: "2024-04-13T05:41:43Z"
-    lastUpdateTime: "2024-04-13T05:41:43Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2024-04-10T23:51:40Z"
-    lastUpdateTime: "2024-04-14T20:35:27Z"
-    message: ReplicaSet "dok-tele-status-demo-5994d6cc7d" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 15
-  readyReplicas: 3
-  replicas: 3
-  updatedReplicas: 3
