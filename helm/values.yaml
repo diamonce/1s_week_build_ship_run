@@ -1,0 +1,7 @@
+replicaCount: 1
+image:
+  registry: "ghcr.io"
+  repository: diamonce/1s_week_build_ship_run
+  tag: "v1.0.0-106879e"
+  os: linux
+  arch: "amd64"

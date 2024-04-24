@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "go-demo.fullname" . }}-go-demo
+  labels:
+    app: go
+  {{- include "go-demo.labels" . | nindent 4 }}
+  annotations:
+    deployment.kubernetes.io/revision: "31"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"generation":1,"labels":{"app":"go"},"name":"go-demo","namespace":"default"},"spec":{"progressDeadlineSeconds":600,"replicas":3,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"go"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"go"}},"spec":{"automountServiceAccountToken":true,"containers":[{"image":"europe-central2-docker.pkg.dev/ethereal-runner-417315/dc-docker-repo/demo_app:production","imagePullPolicy":"Always","name":"dchernenko-demo-app","ports":[{"containerPort":8088,"protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","enableServiceLinks":true,"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"shareProcessNamespace":false,"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":3,"observedGeneration":1,"readyReplicas":3,"replicas":3,"updatedReplicas":3}}
+spec:
+  replicas: {{ .Values.goDemo.replicas }}
+  revisionHistoryLimit: {{ .Values.goDemo.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app: go
+    {{- include "go-demo.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: go
+      {{- include "go-demo.selectorLabels" . | nindent 8 }}
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.goDemo.dchernenkoDemoApp.image.repository }}:{{ .Values.goDemo.dchernenkoDemoApp.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.goDemo.dchernenkoDemoApp.imagePullPolicy }}
+        name: dchernenko-demo-app
+        ports:
+        - containerPort: 8088
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      shareProcessNamespace: false
+      terminationGracePeriodSeconds: 30
