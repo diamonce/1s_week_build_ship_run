@@ -10,7 +10,7 @@ env:
   GKE_CLUSTER: tf-cluster    # cluster name
   GKE_ZONE: europe-central2-c   # cluster zone
   IMAGE: demo_app # image name
-  REPO_IMAGE: 1s_week_build_ship_run
+  REPO_IMAGE: dokwebstatus
   DEPLOYMENT_NAME: go-service
   IMAGE_TAG: production # image tag
   REPO_TAG: v1.0.0-106879e
