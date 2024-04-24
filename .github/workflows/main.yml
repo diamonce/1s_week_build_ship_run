@@ -12,6 +12,8 @@ env:
   IMAGE: demo_app # image name
   DEPLOYMENT_NAME: go-service
   IMAGE_TAG: production # image tag
+  OS: linux
+  ARCH: amd64
   GAR_ZONE: europe-central2 # artifact registry zone
   GAR_REPO: dc-docker-repo # artifact registry repository
 
@@ -76,4 +78,17 @@ jobs:
         kubectl apply -f ./demo/deploy/go_demo_template.yaml
         kubectl get pods
         kubectl rollout restart deploy
+
+    # Login to GitHub Container Registry
+    - name: 'Login to GitHub Container Registry'
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
+
+    # Push the Docker image to Google Container Registry
+    - name: Publish
+      run: |-
+        docker push ghcr.io/diamonce/$IMAGE:$IMAGE_TAG-$OS-$ARCH
         
