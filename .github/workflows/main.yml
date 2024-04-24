@@ -87,6 +87,15 @@ jobs:
         username: ${{github.actor}}
         password: ${{secrets.GITHUB_TOKEN}}
 
+    # Build the Docker image
+    - name: Build
+      run: |-
+        cd ./demo && docker build \
+          --tag "ghcr.io/diamonce/$IMAGE:$IMAGE_TAG-$OS-$ARCH" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+          .
+
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
