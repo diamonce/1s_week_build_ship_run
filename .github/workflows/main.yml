@@ -13,6 +13,7 @@ env:
   REPO_IMAGE: 1s_week_build_ship_run
   DEPLOYMENT_NAME: go-service
   IMAGE_TAG: production # image tag
+  REPO_TAG: v1.0.0-106879e
   OS: linux
   ARCH: amd64
   GAR_ZONE: europe-central2 # artifact registry zone
@@ -93,7 +94,7 @@ jobs:
     - name: Build
       run: |-
         cd ./demo && docker build \
-          --tag "ghcr.io/diamonce/$REPO_IMAGE:$IMAGE_TAG-$OS-$ARCH" \
+          --tag "ghcr.io/diamonce/$REPO_IMAGE:$REPO_TAG-$OS-$ARCH" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
@@ -101,5 +102,5 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker push ghcr.io/diamonce/$REPO_IMAGE:$IMAGE_TAG-$OS-$ARCH
+        docker push ghcr.io/diamonce/$REPO_IMAGE:$REPO_TAG-$OS-$ARCH
         
