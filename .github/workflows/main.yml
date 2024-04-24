@@ -10,6 +10,7 @@ env:
   GKE_CLUSTER: tf-cluster    # cluster name
   GKE_ZONE: europe-central2-c   # cluster zone
   IMAGE: demo_app # image name
+  REPO_IMAGE: 1s_week_build_ship_run
   DEPLOYMENT_NAME: go-service
   IMAGE_TAG: production # image tag
   OS: linux
@@ -92,7 +93,7 @@ jobs:
     - name: Build
       run: |-
         cd ./demo && docker build \
-          --tag "ghcr.io/diamonce/$IMAGE:$IMAGE_TAG-$OS-$ARCH" \
+          --tag "ghcr.io/diamonce/$REPO_IMAGE:$IMAGE_TAG-$OS-$ARCH" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
@@ -100,5 +101,5 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker push ghcr.io/diamonce/$IMAGE:$IMAGE_TAG-$OS-$ARCH
+        docker push ghcr.io/diamonce/$REPO_IMAGE:$IMAGE_TAG-$OS-$ARCH
         
