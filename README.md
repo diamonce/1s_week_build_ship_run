@@ -18,4 +18,8 @@ Deployment is fully automated, so once PR is accepted your Project will be added
 
   * If you want to know how Kubernetes (k8s) cluster on Google Cloud Platform (GCP) was initially deployed please take a look at /demo/deploy/tf-gke-project/.
 
+  * If you dont want to share your secrets please enable gitleaks precommit hook!!!
+```
+    git config hooks.gitleaks.enabled true
+```
 Good luck!
