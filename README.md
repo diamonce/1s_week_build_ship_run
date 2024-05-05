@@ -13,22 +13,29 @@ This dashboard serves as a dynamic window into the deployment status ("Up" or "D
 🚀 **Tech Stack**:
 - **Language**: Golang
 - **Hosting**: Kubernetes (k8s) cluster on Google Cloud Platform (GCP)
-- **Location**: [http://34.116.191.131/](http://34.116.191.131/)
+- **Dashboard URL**: [http://34.116.191.131/](http://34.116.191.131/)
 
 👥 **Contribution**:
 Feel free to add your project by cloning this repo and raising a Pull Request. Deployment is fully automated, so once PR is accepted your Project will be added to the Dashboard.
 
 ### More Details:
 - 📝 **GitHub Actions**: Check out the deployment process in the `.github/workflows/main.yml` of this project.
+
 - 🏗️ **Kubernetes Setup**: For details on how the Kubernetes (k8s) cluster on Google Cloud Platform (GCP) was initially deployed, take a look at `/demo/deploy/tf-gke-project/`.
+
 - 🔒 **Secret Management**: We use GCP Secret Manager to manage secrets securely. For implementation, see [main.tf](https://github.com/diamonce/1s_week_build_ship_run/blob/main/demo/deploy/tf-gke-project/modules/gke-dok-tele-status/main.tf).
-- 🔄 **CI/CD Monitoring**: Currently, we monitor with Argo. **TODO**: Start from scratch and use Flux! It's fun and instructive.
+It is better practice to separate SECRET generation from source.
+So GCP Secret Manager is used to manage everything. And we only refer them in terraform.
+NO SECRET GENERATION IN CODE So this repo can be public.
+
+- 🔄 **CI/CD Monitoring**: Currently, we monitor pods with Argo. **TODO**: Start from scratch and use Flux! It's more fun.
+
 - 🔧 **Precommit Hooks**: This repo utilizes the precommit hooks framework, adding checks configured at `.pre-commit-config.yaml`.
 
 ### Using Pre-commit Hooks:
 - 🛠️ **Installation**: Hook will automatically detect whether pre-commit is installed and install it on macOS or Linux.
 - 📌 For installation guide, visit: [pre-commit install guide](https://pre-commit.com/#install)
-- 🏃 **Run Hook**: To run the hook against all the files:
+- 🏃 **Run Hook Manually**: To run the hook against all the files:
 
 ```
 pre-commit run --all-files
