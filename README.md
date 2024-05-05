@@ -18,6 +18,13 @@ Deployment is fully automated, so once PR is accepted your Project will be added
 
   * If you want to know how Kubernetes (k8s) cluster on Google Cloud Platform (GCP) was initially deployed please take a look at /demo/deploy/tf-gke-project/.
 
+  * Wondering how we manage secrets? Check out https://github.com/diamonce/1s_week_build_ship_run/blob/main/demo/deploy/tf-gke-project/modules/gke-dok-tele-status/main.tf
+    It is better practice to separate SECRET generation from source. So GCP Secret Manager is used to manage everything. And we only refer them in terraform.
+    NO SECRET GENERATION IN CODE.
+    So thos repo can be public.
+
+  * Argo or FLUX? We monitor with Argo. TODO: Start from scratch and use Flux! It is fun.
+
   * We are using precommit hooks framework at this repo.
 
   It adds additional checks which are configured at: .pre-commit-config.yaml
