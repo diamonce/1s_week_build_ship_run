@@ -16,4 +16,3 @@ spec:
                   value: "https://api.coffeeprice.com/latest"
               command: ["/bin/sh", "-c", "if [ $(curl -s $COFFEE_PRICE_URL | jq '.price') -gt 5 ]; then kubectl scale deployment go-demo --replicas=1; fi"] # Scale down deployment if coffee price is above 5
           restartPolicy: OnFailure
-

@@ -197,7 +197,7 @@ data:
       elasticsearch {
         hosts => ["elasticsearch:9200"]
       }
-    } 
+    }
 
 ---
 apiVersion: apps/v1
@@ -345,4 +345,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-

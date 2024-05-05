@@ -27,7 +27,7 @@ variable "machineType" {
 }
 variable "project" {
   description = "Project Name"
-#  default = "ethereal-runner-417315"  # Replace with your project Id here 
+#  default = "ethereal-runner-417315"  # Replace with your project Id here
 }
 variable "vpc_network" {
   description = "Virtual Private Network name"

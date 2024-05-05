@@ -9,7 +9,7 @@ variable "region2" {
 }
 
 variable "project" {
-    default = "ethereal-runner-417315"  # Replace with your project Id here 
+    default = "ethereal-runner-417315"  # Replace with your project Id here
 }
 
 variable "vpc_network" {

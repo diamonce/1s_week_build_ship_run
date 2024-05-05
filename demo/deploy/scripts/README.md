@@ -10,7 +10,7 @@ You may now invoke your plugin as a kubectl command:
 
 kubectl kubeplugin
 
-## Usage example 
+## Usage example
 
 ![dctop example](https://raw.githubusercontent.com/diamonce/1s_week_build_ship_run/main/demo/deploy/scripts/dctop.png)
 <img src="![dctop example](https://raw.githubusercontent.com/diamonce/1s_week_build_ship_run/main/demo/deploy/scripts/dctop.png)">

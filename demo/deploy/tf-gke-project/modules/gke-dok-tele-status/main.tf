@@ -1,8 +1,8 @@
 resource "google_secret_manager_secret" "tele-token" {
   provider = google-beta
-      
+
   secret_id = "TELE_TOKEN"
-	
+
   replication {
     auto {}
   }

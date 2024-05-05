@@ -25,7 +25,7 @@ pipeline {
                     env.ARCH = userARCH
                 }
             }
-        }        
+        }
         stage('Checkout') {
             steps {
                 checkout scm

@@ -7,9 +7,9 @@ terraform {
 
 data "google_secret_manager_secret" "db-user-name" {
   provider = google-beta
-      
+
   secret_id = "DB_USER_NAME"
-	
+
 #  replication {
 #    auto {}
 #  }
@@ -17,9 +17,9 @@ data "google_secret_manager_secret" "db-user-name" {
 
 data "google_secret_manager_secret" "db-pass" {
   provider = google-beta
-      
+
   secret_id = "DB_PASS"
-	
+
 #  replication {
 #    auto {}
 #  }
@@ -27,9 +27,9 @@ data "google_secret_manager_secret" "db-pass" {
 
 data "google_secret_manager_secret" "db-name" {
   provider = google-beta
-      
+
   secret_id = "DB_NAME"
-	
+
 #  replication {
 #    auto {}
 #  }
@@ -178,12 +178,12 @@ data "google_compute_network" "default" {
 #resource "google_compute_firewall" "allow_postgres_from_gke" {
 #  name    = "allow-postgres-from-gke"
 #  network = data.google_compute_network.db-vpc-net.name
-#  
+#
 #  allow {
 #    protocol = "tcp"
 #    ports    = ["5432"]
 #  }
-#  
+#
 #  source_tags      = ["tf-cluster"]  # Assuming GKE nodes have this tag
 #  source_ranges    = ["10.30.0.0/16"] # Replace with GKE cluster CIDR range
 #  target_tags      = ["tf-cluster-db"] # Assuming database server VMs have this tag
