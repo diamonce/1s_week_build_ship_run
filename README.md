@@ -18,9 +18,15 @@ Deployment is fully automated, so once PR is accepted your Project will be added
 
   * If you want to know how Kubernetes (k8s) cluster on Google Cloud Platform (GCP) was initially deployed please take a look at /demo/deploy/tf-gke-project/.
 
-  * We are using precommit hooks framework. For more info check out: https://pre-commit.com/#install
+  * We are using precommit hooks framework at this repo.
 
-  Run against all the files
+  It adds additional checks which are configured at: .pre-commit-config.yaml
+
+  Hook will automaticly detect whether pre-commit is installed and install it on MacOs or Linux
+
+  For more info check out: https://pre-commit.com/#install
+
+  Run hook against all the files
 
 ```
 pre-commit run --all-files
