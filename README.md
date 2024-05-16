@@ -52,4 +52,4 @@ Trim Trailing Whitespace.................................................Passed
 black....................................................................Passed
 Pre-commit checks passed.
 ```
-🍀 Good luck!
+🍀 Good luck!  
